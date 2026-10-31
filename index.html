@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Labyrinth Builder - Unnath Chittimalla</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id="view">
+            <canvas id="glCanvas" width="900" height="900"></canvas>
+            <div id="crosshair" hidden></div>
+        </div>
+        <aside id="sidebar">
+            <p class="eyebrow">CSE606 · labyrinth</p>
+            <h2>Labyrinth guide</h2>
+            <p id="modeHelp">Top view: click a wall to open or close it. Drag the green player, the gold end, and the colored obstacles.</p>
+            <div id="controls">
+                <label>Mode
+                    <select id="modeSelect">
+                        <option value="top">1 Top / design</option>
+                        <option value="world">2 World / design</option>
+                        <option value="play">3 Player / play</option>
+                    </select>
+                </label>
+                <button id="newMaze" type="button">New maze</button>
+                <button id="addObstacle" type="button">Add obstacle</button>
+                <button id="deleteObstacle" type="button">Delete obstacle</button>
+                <button id="axesToggle" type="button">Hide axes</button>
+            </div>
+            <p id="selectionText">Nothing selected</p>
+            <p id="statusText">Generating the maze.</p>
+            <ul id="legend">
+                <li><span class="swatch start"></span> Start</li>
+                <li><span class="swatch end"></span> End</li>
+                <li><span class="swatch open"></span> Open tile ahead</li>
+                <li><span class="swatch blocked"></span> Turn back</li>
+            </ul>
+            <h3>Keys</h3>
+            <ul id="keys">
+                <li><kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> or <kbd>M</kbd> switch view</li>
+                <li><kbd>W</kbd> <kbd>S</kbd> walk, <kbd>A</kbd> <kbd>D</kbd> turn, <kbd>F</kbd> <kbd>G</kbd> strafe</li>
+                <li>Play: click to capture the mouse, <kbd>Esc</kbd> releases it, <kbd>R</kbd> levels the view</li>
+                <li><kbd>Q</kbd> <kbd>E</kbd> look up and down, <kbd>C</kbd> <kbd>V</kbd> tilt</li>
+                <li><kbd>↑</kbd> <kbd>↓</kbd> change speed, <kbd>←</kbd> <kbd>→</kbd> scale an obstacle</li>
+                <li><kbd>x</kbd> <kbd>y</kbd> <kbd>z</kbd> rotate one way, <kbd>X</kbd> <kbd>Y</kbd> <kbd>Z</kbd> the other</li>
+                <li><kbd>H</kbd> show or hide the axes, <kbd>Delete</kbd> removes an obstacle</li>
+            </ul>
+            <h3>Mouse</h3>
+            <ul>
+                <li>Left drag moves the selected object in a design view</li>
+                <li>Right drag is the virtual trackball</li>
+                <li>In world view, right drag on empty space orbits the camera</li>
+                <li>In play view, click the maze and move the mouse to look. Esc releases it</li>
+                <li>The wheel scales the selected obstacle, or changes speed while playing</li>
+            </ul>
+        </aside>
+
+        <script id="vertex-shader" type="notjs">
+            attribute vec3 a_position;
+            attribute vec3 a_normal;
+            uniform mat4 u_model;
+            uniform mat4 u_view;
+            uniform mat4 u_projection;
+            uniform mat3 u_normalMatrix;
+            varying vec3 v_normal;
+            varying float v_depth;
+
+            void main() {
+                vec4 viewPosition = u_view * u_model * vec4(a_position, 1.0);
+                gl_Position = u_projection * viewPosition;
+                v_normal = u_normalMatrix * a_normal;
+                v_depth = length(viewPosition.xyz);
+            }
+        </script>
+        <script id="fragment-shader" type="notjs">
+            precision mediump float;
+            varying vec3 v_normal;
+            varying float v_depth;
+            uniform vec4 u_color;
+            uniform float u_lit;
+            uniform vec3 u_fogColor;
+            uniform float u_fog;
+
+            void main() {
+                vec3 color = u_color.rgb;
+                if (u_lit > 0.5) {
+                    vec3 n = normalize(v_normal);
+                    vec3 key = normalize(vec3(0.42, -0.18, 0.89));
+                    vec3 fill = normalize(vec3(-0.55, 0.35, 0.45));
+                    float shade = 0.34 + 0.52 * abs(dot(n, key)) + 0.16 * max(dot(n, fill), 0.0);
+                    color *= shade;
+                }
+                float fog = clamp((v_depth - 4.0) * u_fog, 0.0, 0.62);
+                color = mix(color, u_fogColor, fog);
+                gl_FragColor = vec4(color, u_color.a);
+            }
+        </script>
+        <script src="gl-matrix-min.js"></script>
+        <script src="meshes.js"></script>
+        <script src="main.js"></script>
+    </body>
+</html>
