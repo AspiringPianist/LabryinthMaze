@@ -1,0 +1,42 @@
+CSE606 - Term 1 - 2026-27, IIITB
+# Project &amp; Report AI Disclosure Statement 
+Name of Student:
+Roll Number:
+
+
+
+
+## 1. Code Generation and Modification
+* **Tool(s) Used:** (e.g., GitHub Copilot, ChatGPT, Claude)
+* **Specific Applications:** 
+  * [ ] None
+  * [ ] HTML boilerplate setup
+  * [ ] JavaScript event listeners (e.g., mouse interaction, window resizing)
+  * [ ] WebGL boilerplate (e.g., shader compilation, buffer binding templates)
+  * [ ] Math helper functions (e.g., matrix multiplication, vector normalization)
+  * [ ] GLSL Shader code debugging or generation
+* **Prompts Used &amp; Modification Level:** (Describe what you asked the AI and how much you changed the output code to fit your project.)
+
+## 2. 3D Modeling and Assets (Blender)
+* **Tool(s) Used:** (e.g., Blender AI Add-ons, Midjourney for textures, DreamUV)
+* **Specific Applications:**
+  * [ ] None
+  * [ ] Mesh generation / Procedural geometry assistance
+  * [ ] Texture generation (e.g., seamless textures, normal maps, roughness maps)
+  * [ ] AI-driven denoising or baking assistance
+* **Description of AI Involvement:** (Explain exactly which assets are AI-generated vs. hand-modeled, and how you edited the AI assets.)
+
+## 3. Report Writing and Documentation
+* **Tool(s) Used:** (e.g., ChatGPT, Claude, Grammarly Premium)
+* **Specific Applications:**
+  * [ ] None
+  * [ ] Outlining the report structure and sections
+  * [ ] Drafting technical explanations (e.g., explaining lighting models used)
+  * [ ] Proofreading, grammar correction, and refining tone
+  * [ ] Generating inline JSDoc or GLSL code comments
+* **Description of AI Involvement:** (Specify if the AI drafted text from your raw notes, or if it was only used to polish text you wrote yourself. Note any text kept verbatim.)
+
+## 4. Academic Integrity &amp; Verification
+* **Core Logic &amp; Authorship Statement:** I certify that all core WebGL rendering loops, custom shader logic, matrix transformation pipelines, and primary Blender models were engineered and verified by me. Furthermore, the analysis, conclusions, and technical evaluations presented in the report reflect my own understanding of the material. AI tools were strictly used for supplemental boilerplate, troubleshooting, and editing.
+* **Link to Chat Transcripts (If applicable):** [Insert URL here]
+
