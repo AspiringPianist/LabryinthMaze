@@ -67,9 +67,9 @@ let meshCursor = 0;
 let nextId = 1;
 let statusMessage = "";
 
-/** @type {boolean[][]} Wall on y = r, covering x in [c, c + 1]. */
+/** @type {boolean[][]} */
 let hWall = [];
-/** @type {boolean[][]} Wall on x = c, covering y in [r, r + 1]. */
+/** @type {boolean[][]} */
 let vWall = [];
 /** @type {Obstacle[]} */
 let obstacles = [];
@@ -84,7 +84,13 @@ const player = {
     quat: quat.create(),
     speed: 1.5
 };
-/** @type {{kind: string, id?: number}|null} */
+/**
+ * @typedef {Object} Selection
+ * @property {string} kind
+ * @property {number} [id]
+ */
+
+/** @type {Selection|null} */
 let selection = null;
 let pointer = null;
 const held = new Set();
